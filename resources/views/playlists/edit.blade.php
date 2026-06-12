@@ -1,37 +1,15 @@
 @extends('layouts.app')
-
+@section('title', 'Редактировать плейлист - ХиХиХа Музыка')
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Редактировать плейлист</div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('cabinet.playlists.update', $playlist) }}" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="mb-3">
-                        <label>Название плейлиста</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $playlist->name) }}" required>
-                        @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="mb-3">
-                        <label>Описание</label>
-                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3">{{ old('description', $playlist->description) }}</textarea>
-                        @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="mb-3">
-                        <label>Обложка (необязательно)</label>
-                        <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" accept="image/*">
-                        @error('cover')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        @if($playlist->cover_path)
-                            <img src="{{ Storage::disk('public')->url($playlist->cover_path) }}" width="100" class="mt-2">
-                        @endif
-                    </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                    <a href="{{ route('cabinet.playlists.show', $playlist) }}" class="btn btn-secondary">Отмена</a>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="row justify-content-center"><div class="col-lg-8"><section class="hero-panel">
+    <div class="hero-kicker">Настройки подборки</div><h1>Редактировать плейлист</h1>
+    <form method="POST" action="{{ route('cabinet.playlists.update', $playlist) }}" enctype="multipart/form-data" class="mt-4">
+        @csrf @method('PUT')
+        <div class="mb-3"><label class="form-label fw-bold">Название плейлиста</label><input name="name" class="form-control" value="{{ old('name', $playlist->name) }}" required></div>
+        <div class="mb-3"><label class="form-label fw-bold">Описание</label><textarea name="description" class="form-control" rows="4">{{ old('description', $playlist->description) }}</textarea></div>
+        <div class="mb-4"><label class="form-label fw-bold">Новая обложка</label><input name="cover" type="file" class="form-control" accept="image/*"></div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a href="{{ route('cabinet.playlists.show', $playlist) }}" class="btn btn-secondary">Назад</a>
+    </form>
+</section></div></div>
 @endsection

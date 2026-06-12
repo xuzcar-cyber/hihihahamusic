@@ -76,5 +76,9 @@ class User extends Authenticatable
     return (bool) $this->is_admin;
 
 }
-}
 
+    public function getAvatarUrlAttribute()
+    {
+        return $this->avatar ? asset('storage/' . $this->avatar) : null;
+    }
+}

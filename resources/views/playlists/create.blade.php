@@ -1,33 +1,15 @@
 @extends('layouts.app')
-
+@section('title', 'Создать плейлист - ХиХиХа Музыка')
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Создать плейлист</div>
-            <div class="card-body">
-                <form method="POST" action="{{ route('cabinet.playlists.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label>Название плейлиста</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
-                        @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="mb-3">
-                        <label>Описание</label>
-                        <textarea name="description" class="form-control @error('description') is-invalid @enderror" rows="3">{{ old('description') }}</textarea>
-                        @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <div class="mb-3">
-                        <label>Обложка (необязательно)</label>
-                        <input type="file" name="cover" class="form-control @error('cover') is-invalid @enderror" accept="image/*">
-                        @error('cover')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                    </div>
-                    <button type="submit" class="btn btn-primary">Создать</button>
-                    <a href="{{ route('cabinet.playlists.index') }}" class="btn btn-secondary">Отмена</a>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<div class="row justify-content-center"><div class="col-lg-8"><section class="hero-panel">
+    <div class="hero-kicker">Новая подборка</div><h1>Создать плейлист</h1>
+    <form method="POST" action="{{ route('cabinet.playlists.store') }}" enctype="multipart/form-data" class="mt-4">
+        @csrf
+        <div class="mb-3"><label class="form-label fw-bold">Название плейлиста</label><input name="name" class="form-control" value="{{ old('name') }}" required></div>
+        <div class="mb-3"><label class="form-label fw-bold">Описание</label><textarea name="description" class="form-control" rows="4">{{ old('description') }}</textarea></div>
+        <div class="mb-4"><label class="form-label fw-bold">Обложка</label><input name="cover" type="file" class="form-control" accept="image/*"></div>
+        <button type="submit" class="btn btn-primary">Создать</button>
+        <a href="{{ route('cabinet.playlists.index') }}" class="btn btn-secondary">Назад</a>
+    </form>
+</section></div></div>
 @endsection

@@ -22,4 +22,9 @@ class Playlist extends Model
                     ->withPivot('position')
                     ->orderBy('position');
     }
+
+    public function getCoverUrlAttribute()
+    {
+        return $this->cover_path ? asset('storage/' . $this->cover_path) : null;
+    }
 }
